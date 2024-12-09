@@ -1,0 +1,45 @@
+{
+  "name": "go-doc-comments",
+  "displayName": "Go Doc Comments",
+  "description": "Generate standard documentation comments for Golang",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:go"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "go-doc-comments.generateComment",
+        "title": "Generate Go Doc Comment"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "go-doc-comments.generateComment",
+        "key": "cmd+ctrl+/",
+        "mac": "cmd+ctrl+/",
+        "when": "editorLangId == go"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.x.x",
+    "@types/vscode": "^1.60.0",
+    "typescript": "^4.x.x"
+  }
+}
