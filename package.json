@@ -3,6 +3,7 @@
   "displayName": "Go Doc Comments",
   "description": "Generate standard documentation comments for Golang",
   "version": "0.1.0",
+  "publisher": "huyang",
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -11,6 +12,18 @@
     "Snippets",
     "Other"
   ],
+  "keywords": [
+    "go",
+    "golang",
+    "comments",
+    "documentation",
+    "godoc"
+  ],
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/huyangv/go-doc-comments.git"
+  },
   "activationEvents": [
     "onLanguage:go"
   ],
@@ -35,11 +48,13 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/node": "^16.x.x",
     "@types/vscode": "^1.60.0",
+    "@vscode/vsce": "^3.2.1",
     "typescript": "^4.x.x"
   }
 }
