@@ -2,7 +2,7 @@
   "name": "go-doc-comments",
   "displayName": "Go Doc Comments",
   "description": "Generate standard documentation comments for Golang",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "huyang",
   "engines": {
     "vscode": "^1.60.0"
