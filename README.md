@@ -61,6 +61,109 @@ func (u *User) SetArg(name string, age int) (r1 string, r2 error, usr *User) {
     return
 }
 
+// CheckWrite 展示函数类型的返回值
+//
+// Returns:
+//   - func() int
+//   - func(in string, out chan int) (int, error)
+func (u *User) CheckWrite() (func() int, func(in string, out chan int) (int, error)) {
+    return nil, nil
+}
+
+// Test 展示 map 类型返回值
+//
+// Returns:
+//   - map[string]string
+func (u *User) Test() map[string]string {
+    return nil
+}
+
+// Test1 展示多返回值
+//
+// Returns:
+//   - map[string]string
+//   - []bson.M
+func (u *User) Test1() (map[string]string, []bson.M) {
+    return nil, nil
+}
+
+// Test2 展示 channel 类型返回值
+//
+// Returns:
+//   - chan string
+func (u *User) Test2() chan string {
+    return nil
+}
+
+// Test3 展示混合类型返回值
+//
+// Returns:
+//   - chan string
+//   - []bson.M
+func (u *User) Test3() (chan string, []bson.M) {
+    return nil, nil
+}
+
+// Test4 展示命名返回值
+//
+// Returns:
+//   - c1 chan string
+//   - c2 chan string
+//   - b1 []bson.M
+func (u *User) Test4() (c1, c2 chan string, b1 []bson.M) {
+    return
+}
+
+// Test5 展示可变参数
+//
+// Parameters:
+//   - arg ...int
+func (u *User) Test5(arg ...int) {
+}
+
+// Test6 展示混合可变参数
+//
+// Parameters:
+//   - arg1 int
+//   - arg2 ...int
+func (u *User) Test6(arg1 int, arg2 ...int) {
+}
+
+// Test7 展示基本参数
+//
+// Parameters:
+//   - arg1 int
+//   - arg2 int
+func (u *User) Test7(arg1 int, arg2 int) {
+}
+
+// Test8 展示参数和返回值共享类型
+//
+// Parameters:
+//   - arg1 int
+//   - arg2 int
+//
+// Returns:
+//   - ret1 int
+//   - ret2 int
+func (u *User) Test8(arg1, arg2 int) (ret1, ret2 int) {
+    return
+}
+
+// Test9 展示函数类型返回值和 context 参数
+//
+// Parameters:
+//   - arg1 int
+//   - arg2 int
+//   - ctx context.Context
+//
+// Returns:
+//   - t1 func() error
+//   - t2 func() int
+func (u *User) Test9(arg1, arg2 int, ctx context.Context) (t1 func() error, t2 func() int) {
+    return
+}
+
 // ITest
 type ITest interface {
     // Tf1
