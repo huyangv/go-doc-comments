@@ -44,24 +44,25 @@ export function activate(context: vscode.ExtensionContext) {
             const parseFuncDecl = (line: string): { funName: string; argList: string[]; returnList: string[] } => {
                 // 1. 去掉 func 关键字
                 let rest = line.replace(/^func\s+/, '');
-                
+
                 // 2. 如果有接收器，去掉接收器部分
                 const receiverMatch = rest.match(/^\([^)]+\)\s*/);
                 if (receiverMatch) {
                     rest = rest.substring(receiverMatch[0].length);
                 }
-                
+
                 // 3. 提取方法名和参数列表
                 const methodMatch = rest.match(/^(\w+)\s*\((.*?)\)/);
                 if (!methodMatch) {
                     return { funName: '', argList: [], returnList: [] };
                 }
                 const [fullMatch, name, params] = methodMatch;
-                
+
                 // 4. 提取返回值部分 - 从方法声明的右括号后开始
-                const afterMethodMatch = rest.substring(fullMatch.length).trim();
-                const beforeBody = afterMethodMatch.split('{')[0].trim();
-                
+                let afterMethodMatch = rest.substring(fullMatch.length).trim();
+                afterMethodMatch = afterMethodMatch.substring(0, afterMethodMatch.length - 1)
+                const beforeBody = afterMethodMatch.trim();
+
                 // 5. 处理返回值
                 let returns = '';
                 if (beforeBody.startsWith('(')) {
@@ -85,12 +86,12 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // 先处理整个输入字符串
                 const fullStr = input.trim();
-                
+
                 // 先尝试解析完整的类型声明
                 const items: string[] = [];
                 let current = '';
                 let depth = 0;
-                
+
                 // 按逗号分割，但要考虑括号嵌套
                 for (let i = 0; i < input.length; i++) {
                     const char = input[i];
@@ -133,9 +134,9 @@ export function activate(context: vscode.ExtensionContext) {
                 const result: string[] = [];
                 let lastType = '';
 
-                for (let i = 0; i < items.length; i++) {
+                for (let i = items.length - 1; i >= 0; i--) {
                     const item = items[i].trim();
-                    
+
                     // 如果是复杂类型，直接添加
                     if (isComplexType(item)) {
                         result.push(item);
@@ -171,7 +172,7 @@ export function activate(context: vscode.ExtensionContext) {
                     }
                 }
 
-                return result;
+                return result.reverse();
             };
 
             // 检查是否是复杂类型
@@ -182,10 +183,10 @@ export function activate(context: vscode.ExtensionContext) {
                     return true;
                 }
                 // 检查是否是其他复杂类型
-                return trimmed.startsWith('chan') || 
-                       trimmed.startsWith('map[') ||
-                       trimmed.startsWith('[]') ||
-                       trimmed.includes('interface{');
+                return trimmed.startsWith('chan') ||
+                    trimmed.startsWith('map[') ||
+                    trimmed.startsWith('[]') ||
+                    trimmed.includes('interface{');
             };
 
             const funcInfo = parseFuncDecl(nextLineText);
